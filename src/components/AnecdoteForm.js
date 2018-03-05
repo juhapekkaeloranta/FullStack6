@@ -1,15 +1,16 @@
 import React from 'react'
+import { anecdoteCreation } from '../reducers/anecdoteReducer'
 
 class AnecdoteForm extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault()
-    const content = e.target.anecdote.value
-    this.props.store.dispatch({
-      type: 'CREATE',
-      content
-    })
+  resetInputField = (inputField) => {
+    inputField.value = ''
+  }
 
-    e.target.anecdote.value = ''
+  handleSubmit = (event) => {
+    event.preventDefault()
+    const content = event.target.anecdoteInput.value
+    this.props.store.dispatch(anecdoteCreation(content))
+    this.resetInputField(event.target.anecdoteInput)
   }
 
   render() {
@@ -17,7 +18,7 @@ class AnecdoteForm extends React.Component {
       <div>
         <h2>create new</h2>
         <form onSubmit={this.handleSubmit}>
-          <div><input name='anecdote' /></div>
+          <div><input name='anecdoteInput' /></div>
           <button>create</button>
         </form>
       </div>
