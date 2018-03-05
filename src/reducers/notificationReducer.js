@@ -2,11 +2,14 @@ const initialState = 'Notifications appear here'
 
 const notificationReducer = (store = initialState, action) => {
   console.log(store)
-  if (action.type==='SET') {
-    return action.notificationText
+  switch (action.type) {
+    case 'SET': {
+      return action.notificationText
+    }
+    default: {
+      return store
+    }
   }
-
-  return store
 }
 
 export const notificationCreation = (text) => {
