@@ -1,10 +1,10 @@
-const initialState = 'Notifications appear here'
+const initialState = null
 
 const notificationReducer = (store = initialState, action) => {
   console.log(store)
   switch (action.type) {
     case 'SET': {
-      return action.notificationText
+      return action.text
     }
     default: {
       return store
