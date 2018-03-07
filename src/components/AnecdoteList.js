@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { anecdoteVote } from '../reducers/anecdoteReducer'
 import { notificationCreation } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
+import anecdoteService from '../services/anecdotes'
 
 class AnecdoteList extends React.Component {
   componentDidMount() {
@@ -18,9 +19,9 @@ class AnecdoteList extends React.Component {
   }
 
   voteAnecdote = (anecdote) => {
-    const giveVote = (id) => {
-      console.log('liked from AnecdoteList')
-      this.props.anecdoteVote(id)
+    const giveVote = async (anecdote) => {
+      const votedAnecdote = await anecdoteService.vote(anecdote)
+      this.props.anecdoteVote(votedAnecdote)
     }
 
     // This is notification logic in AnecdoteList?! -> refactor?
@@ -29,7 +30,7 @@ class AnecdoteList extends React.Component {
     }
 
     const resetNotificationsAfter = (seconds) => {
-      const millisec = seconds*1000
+      const millisec = seconds * 1000
       setTimeout(() => {
         this.props.notificationCreation(null)
         console.log('notification reset!')
@@ -37,7 +38,7 @@ class AnecdoteList extends React.Component {
     }
 
     return () => {
-      giveVote(anecdote.id)
+      giveVote(anecdote)
       showNotification('You voted for: "' + anecdote.content + '"')
       resetNotificationsAfter(3)
     }
@@ -54,7 +55,7 @@ class AnecdoteList extends React.Component {
           .sort((a, b) => b.votes - a.votes)
           .filter(anecdote => anecdote.content.includes(filteringString))
           .map(anecdote =>
-            <Anecdote key={anecdote.id} anecdote={anecdote} handleVote={this.voteAnecdote(anecdote)}/>
+            <Anecdote key={anecdote.id} anecdote={anecdote} handleVote={this.voteAnecdote(anecdote)} />
           )
         }
       </div>
