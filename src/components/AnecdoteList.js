@@ -1,11 +1,13 @@
 import React from 'react'
 import Anecdote from './Anecdote'
+import PropTypes from 'prop-types'
 import { anecdoteVote } from '../reducers/anecdoteReducer'
 import { notificationCreation } from '../reducers/notificationReducer'
 
 class AnecdoteList extends React.Component {
+
   voteAnecdote = (anecdote) => {
-    const store = this.props.store
+    const store = this.context.store
 
     const giveVote = (id) => {
       console.log('liked from AnecdoteList')
@@ -33,20 +35,24 @@ class AnecdoteList extends React.Component {
   }
 
   render() {
-    const anecdotes = this.props.store.getState().anecdotes
+    const anecdotes = this.context.store.getState().anecdotes
     return (
       <div>
         <h2>Anecdotes</h2>
         {anecdotes
           .sort((a, b) => b.votes - a.votes)
-          .filter(anecdote => anecdote.content.includes(this.props.store.getState().filter))
+          .filter(anecdote => anecdote.content.includes(this.context.store.getState().filter))
           .map(anecdote =>
-            <Anecdote key={anecdote.id} anecdote={anecdote} store={this.props.store} handleVote={this.voteAnecdote(anecdote)}/>
+            <Anecdote key={anecdote.id} anecdote={anecdote} handleVote={this.voteAnecdote(anecdote)}/>
           )
         }
       </div>
     )
   }
+}
+
+AnecdoteList.contextTypes = {
+  store: PropTypes.object
 }
 
 export default AnecdoteList

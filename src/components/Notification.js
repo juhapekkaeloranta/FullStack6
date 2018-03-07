@@ -1,10 +1,18 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Notification extends React.Component {
   render() {
-    const notification = this.props.store.getState().notification
+    console.log('Notif: ', this.context.store.getState())
+    const notification = this.context.store.getState().notification
     const style = {
       backgroundColor: '#dbffc9',
+      padding: 10,
+      borderWidth: 1
+    }
+
+    const emptyStyle = {
+      backgroundColor: '#ffffff',
       padding: 10,
       borderWidth: 1
     }
@@ -15,14 +23,26 @@ class Notification extends React.Component {
       </div>
     )
 
+    const notificationPlaceholder = () => (
+      <div style={emptyStyle}>
+        Select anecdote to vote!
+      </div>
+    )
+
     if (notification !== null) {
       return (
         notificationElement()
       )
     } else {
-      return null
+      return (
+        notificationPlaceholder()
+      )
     }
   }
+}
+
+Notification.contextTypes = {
+  store: PropTypes.object
 }
 
 export default Notification
