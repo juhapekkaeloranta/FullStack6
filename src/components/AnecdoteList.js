@@ -12,6 +12,7 @@ class AnecdoteList extends React.Component {
       store.dispatch(anecdoteVote(id))
     }
 
+    // This is notification logic in AnecdoteList?! -> refactor?
     const showNotification = (notificationMsg) => {
       store.dispatch(notificationCreation(notificationMsg))
     }
