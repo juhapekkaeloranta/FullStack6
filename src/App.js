@@ -12,8 +12,7 @@ class App extends React.Component {
   }
 
   render() {
-    const anecdotes = this.props.store.getState().anecdotes
-    console.log(anecdotes)
+    //const anecdotes = this.props.store.getState().anecdotes
     return (
       <div>
         <h1>Programming anecdotes</h1>

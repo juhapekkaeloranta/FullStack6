@@ -1,8 +1,6 @@
 const initialState = ''
 
 const filterReducer = (store = initialState, action) => {
-  console.log('hello from filterReducer')
-  console.log(store)
   switch (action.type) {
     case 'SETFILTER': {
       return action.filterText

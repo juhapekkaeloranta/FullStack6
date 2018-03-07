@@ -1,7 +1,6 @@
 const initialState = null
 
 const notificationReducer = (store = initialState, action) => {
-  console.log(store)
   switch (action.type) {
     case 'SET': {
       return action.text
