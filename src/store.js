@@ -9,6 +9,4 @@ const combinedReducer = combineReducers({
   filter: filterReducer
 })
 
-//const store = createStore(reducer)
-
 export default combinedReducer

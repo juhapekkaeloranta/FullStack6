@@ -5,6 +5,16 @@ import { anecdoteVote } from '../reducers/anecdoteReducer'
 import { notificationCreation } from '../reducers/notificationReducer'
 
 class AnecdoteList extends React.Component {
+  componentDidMount() {
+    const { store } = this.context
+    this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    )
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
 
   voteAnecdote = (anecdote) => {
     const store = this.context.store

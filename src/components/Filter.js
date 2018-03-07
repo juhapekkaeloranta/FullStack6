@@ -3,6 +3,17 @@ import PropTypes from 'prop-types'
 import { setFilter } from '../reducers/filterReducer'
 
 class Filter extends React.Component {
+  componentDidMount() {
+    const { store } = this.context
+    this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    )
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
   handleFilterChange = (event) => {
     console.log(event.target.value)
     this.context.store.dispatch(setFilter(event.target.value))

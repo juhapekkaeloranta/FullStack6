@@ -2,6 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Notification extends React.Component {
+  componentDidMount() {
+    const { store } = this.context
+    this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    )
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
   render() {
     console.log('Notif: ', this.context.store.getState())
     const notification = this.context.store.getState().notification

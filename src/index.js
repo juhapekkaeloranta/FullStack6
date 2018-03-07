@@ -7,14 +7,9 @@ import combinedReducer from './reducers/combinedReducer'
 
 const store = createStore(combinedReducer)
 
-const render = () => {
-  console.log(store)
-  ReactDOM.render(
-    <Provider store={store}>
-      <App/>
-    </Provider>,
-    document.getElementById('root'))
-}
-
-render()
-store.subscribe(render)
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)

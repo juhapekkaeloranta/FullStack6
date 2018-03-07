@@ -3,6 +3,17 @@ import PropTypes from 'prop-types'
 import { anecdoteCreation } from '../reducers/anecdoteReducer'
 
 class AnecdoteForm extends React.Component {
+  componentDidMount() {
+    const { store } = this.context
+    this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    )
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
   resetInputField = (inputField) => {
     inputField.value = ''
   }
