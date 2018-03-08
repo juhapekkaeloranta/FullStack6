@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { anecdoteCreation } from '../reducers/anecdoteReducer'
 import { connect } from 'react-redux'
-import anecdoteService from '../services/anecdotes'
 
 class AnecdoteForm extends React.Component {
   componentDidMount() {
@@ -24,10 +23,7 @@ class AnecdoteForm extends React.Component {
     event.preventDefault()
     const content = event.target.anecdoteInput.value
     this.resetInputField(event.target.anecdoteInput)
-
-    const newAnecdote = await anecdoteService.createNew(content)
-    console.log(newAnecdote)
-    this.props.anecdoteCreation(newAnecdote)
+    this.props.anecdoteCreation(content)
   }
 
   render() {

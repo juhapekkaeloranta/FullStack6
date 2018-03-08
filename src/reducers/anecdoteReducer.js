@@ -9,7 +9,7 @@ const anecdoteReducer = (store = [], action) => {
       return [...old, { ...voted, votes: voted.votes + 1 }]
     }
     case 'CREATE': {
-      return [...store, action.object]
+      return [...store, action.data]
     }
     case 'INIT_ANECDOTES': {
       return action.data
@@ -20,10 +20,13 @@ const anecdoteReducer = (store = [], action) => {
   }
 }
 
-export const anecdoteCreation = (object) => {
-  return {
-    type: 'CREATE',
-    object
+export const anecdoteCreation = (content) => {
+  return async (dispatch) => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch({
+      type: 'CREATE',
+      data: newAnecdote
+    })
   }
 }
 
