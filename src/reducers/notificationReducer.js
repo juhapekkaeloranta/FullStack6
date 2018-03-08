@@ -18,4 +18,22 @@ export const notificationCreation = (text) => {
   }
 }
 
+export const showNotification = (text, time) => {
+  return async (dispatch) => {
+    await setTimeout(() => {
+      const empty = null
+      dispatch({
+        type: 'SET',
+        text: empty
+      })
+      console.log('notification reset!')
+    }, time * 1000)
+
+    dispatch({
+      type: 'SET',
+      text: text
+    })
+  }
+}
+
 export default notificationReducer

@@ -2,9 +2,10 @@ import React from 'react'
 import Anecdote from './Anecdote'
 import PropTypes from 'prop-types'
 import { anecdoteVote } from '../reducers/anecdoteReducer'
-import { notificationCreation } from '../reducers/notificationReducer'
+import { notificationCreation, showNotification } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 import anecdoteService from '../services/anecdotes'
+//import { showNotification } from '../reducers/notificationReducer'
 
 class AnecdoteList extends React.Component {
   componentDidMount() {
@@ -25,7 +26,7 @@ class AnecdoteList extends React.Component {
     }
 
     // This is notification logic in AnecdoteList?! -> refactor?
-    const showNotification = (notificationMsg) => {
+    /*const showNotification = (notificationMsg) => {
       this.props.notificationCreation(notificationMsg)
     }
 
@@ -35,12 +36,19 @@ class AnecdoteList extends React.Component {
         this.props.notificationCreation(null)
         console.log('notification reset!')
       }, millisec)
+    }*/
+
+    const notifyAndReset= (msg, time) => {
+      console.log(this.props.anecdoteVote)
+      console.log(this.props.showNotification)
+      console.log(this.props)
+      this.props.showNotification(msg, time)
     }
 
     return () => {
       giveVote(anecdote)
-      showNotification('You voted for: "' + anecdote.content + '"')
-      resetNotificationsAfter(3)
+      const msg = 'You voted for: "' + anecdote.content + '"'
+      notifyAndReset(msg, 3)
     }
   }
 
@@ -76,7 +84,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   anecdoteVote,
-  notificationCreation
+  notificationCreation,
+  showNotification
 }
 
 const ConnectedAnecdoteList = connect(
