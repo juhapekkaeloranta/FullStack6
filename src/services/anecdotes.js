@@ -9,10 +9,15 @@ const getAll = async () => {
   return response.data
 }
 
-const createNew = async (content) => {
+/*const createNew = async (content) => {
   const newObject = { content: content, id: getId(), votes: 0 }
   const response = await axios.post(baseUrl, newObject)
   return response.data
+}*/
+
+const createNew = (content) => {
+  const newObject = { content: content, id: getId(), votes: 0 }
+  return axios.post(baseUrl, newObject)
 }
 
 const vote = async (anecdote) => {

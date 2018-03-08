@@ -22,10 +22,11 @@ const anecdoteReducer = (store = [], action) => {
 
 export const anecdoteCreation = (content) => {
   return async (dispatch) => {
-    const newAnecdote = await anecdoteService.createNew(content)
+    const newAnecdote = anecdoteService.createNew(content)
+    console.log(newAnecdote)
     dispatch({
       type: 'CREATE',
-      data: newAnecdote
+      data: newAnecdote.data
     })
   }
 }
